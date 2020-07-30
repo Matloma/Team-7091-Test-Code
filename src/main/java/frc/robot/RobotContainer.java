@@ -51,7 +51,7 @@ public class RobotContainer {
     driveTankXbox.addRequirements(driveTrain);
     driveArcadeXbox = new DriveArcadeXbox(driveTrain);
     driveArcadeXbox.addRequirements(driveTrain);
-    driveTrain.setDefaultCommand(driveArcadeXbox);
+    driveTrain.setDefaultCommand(driveTankXbox);
 
     intake = new Intake();
     intakeBall = new IntakeBall(intake);
@@ -84,7 +84,7 @@ public class RobotContainer {
 
     JoystickButton switchDrive = new JoystickButton(xbox, XboxController.Button.kX.value);
     
-    switchDrive.toggleWhenPressed(driveTankXbox.perpetually());
+    switchDrive.toggleWhenPressed(driveArcadeXbox.perpetually());
   }
 
 
