@@ -26,7 +26,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   public static XboxController xbox;
   private final DriveTrain driveTrain;
-  private final DriveXbox driveXbox;
+  private final DriveTankXbox driveTankXbox;
+  private final DriveArcadeXbox driveArcadeXbox;
 
   private final Intake intake;
   private final IntakeBall intakeBall;
@@ -46,16 +47,21 @@ public class RobotContainer {
   public RobotContainer() {
     xbox = new XboxController(Constants.xboxControllerPort);
     driveTrain = new DriveTrain();
-    driveXbox = new DriveXbox(driveTrain);
-    driveXbox.addRequirements(driveTrain);
+    driveTankXbox = new DriveTankXbox(driveTrain);
+    driveTankXbox.addRequirements(driveTrain);
+    driveArcadeXbox = new DriveArcadeXbox(driveTrain);
+    driveArcadeXbox.addRequirements(driveTrain);
+    driveTrain.setDefaultCommand(driveArcadeXbox);
 
     intake = new Intake();
     intakeBall = new IntakeBall(intake);
     intakeBall.addRequirements(intake);
+    intake.setDefaultCommand(intakeBall);
 
     shooter = new Shooter();
     shootBall = new ShootBall(shooter);
     shootBall.addRequirements(shooter);
+    shooter.setDefaultCommand(shootBall);
 
     autonomousOne = new AutonomousOne(driveTrain, intake, shooter);
     chooser.setDefaultOption("Autonomous One", autonomousOne);
@@ -74,7 +80,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     JoystickButton move = new JoystickButton(xbox, XboxController.Button.kA.value);
-    move.whenPressed(new DriveTimed(driveTrain, 1, 0.5));
+    move.whenPressed(new DriveForwardTimed(driveTrain, 1, 0.5));
+
+    JoystickButton switchDrive = new JoystickButton(xbox, XboxController.Button.kX.value);
+    
+    switchDrive.toggleWhenPressed(driveTankXbox.perpetually());
   }
 
 

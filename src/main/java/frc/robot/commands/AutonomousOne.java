@@ -19,7 +19,7 @@ public class AutonomousOne extends SequentialCommandGroup {
    * Creates a new AutonomousOne.
    */
   public AutonomousOne(DriveTrain driveTrain, Intake intake, Shooter shooter) {
-    addCommands(new DriveTimed(driveTrain, 2, 0.5), 
+    addCommands(new DriveForwardTimed(driveTrain, 2, 0.5), 
                 new ParallelCommandGroup(new ShootBallTimed(shooter, 2, 0.5), 
                                          new IntakeBallTimed(intake, 2, 0.5)
                                         )

@@ -50,12 +50,20 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void driveXbox(XboxController xbox, double speed){
-    driveTrain.tankDrive(xbox.getY(Hand.kLeft)*-1, xbox.getY(Hand.kRight)*-1);
+  public void driveTankXbox(XboxController xbox, double speed){
+    driveTrain.tankDrive(xbox.getY(Hand.kLeft)*-1*speed, xbox.getY(Hand.kRight)*-1*speed);
+  }
+  
+  public void driveArcadeXbox(XboxController xbox, double speed){
+    driveTrain.arcadeDrive(xbox.getY(Hand.kLeft)*-1*speed, xbox.getX(Hand.kRight)*speed);
   }
 
   public void driveForward(double speed){
     driveTrain.tankDrive(speed, speed);
+  }
+
+  public void driveTank(double speed1, double speed2){
+    driveTrain.tankDrive(speed1, speed2);
   }
 
   public void stop(){
